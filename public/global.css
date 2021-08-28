@@ -62,13 +62,19 @@ button:focus {
 	border-color: #666;
 }
 
-@media (max-width: 599px) {
+@media (max-aspect-ratio: 1/1) {
 	#map0 a.mapboxgl-ctrl-logo {
 		display: none;
 	}
 }
 
-@media (min-width: 600px) {
+@media (aspect-ratio: 1/1) {
+	#map0 a.mapboxgl-ctrl-logo {
+		display: block;
+	}
+}
+
+@media (min-aspect-ratio: 1/1) {
 	#map1 a.mapboxgl-ctrl-logo {
 		display: none;
 	}
