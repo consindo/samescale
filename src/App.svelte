@@ -189,13 +189,6 @@
 </main>
 
 <style>
-  nav {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 10;
-  }
-
   .map {
     flex: 1;
   }
