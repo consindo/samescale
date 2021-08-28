@@ -135,6 +135,14 @@
     map0.addControl(map0geocoder, 'top-left')
     map1.addControl(map1geocoder, 'top-left')
 
+    const geolocate = new mapboxgl.GeolocateControl({
+      showUserLocation: false,
+    })
+    map1.addControl(geolocate, 'bottom-right')
+
+    const nav = new mapboxgl.NavigationControl()
+    map1.addControl(nav, 'bottom-right')
+
     let map0flying = false
     let map1flying = false
     map0geocoder.on('result', (e) => {
