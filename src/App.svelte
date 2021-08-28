@@ -195,7 +195,7 @@
 
   main {
     display: flex;
-    height: 100vh;
+    height: 100%;
     column-gap: 1px;
     row-gap: 1px;
     flex-direction: column;
