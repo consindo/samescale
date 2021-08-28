@@ -45,17 +45,33 @@
       }
     }
 
-    map0.on('zoom', () => {
-      if (map0lock) return
-      lock(1)
+    map0.on('zoom', (e) => {
+      if (map0lock === true) {
+        return
+      } else if (map0lock === -1) {
+        if (map0.getZoom() < map1.getZoom()) return
+      } else if (map0lock === 1) {
+        if (map0.getZoom() > map1.getZoom()) return
+        map0lock = false // helps the zoom out
+      } else {
+        lock(1)
+      }
       const zoom = map0.getZoom()
       requestAnimationFrame(() => {
         map1.setZoom(zoom)
       })
     })
-    map1.on('zoom', () => {
-      if (map1lock) return
-      lock(0)
+    map1.on('zoom', (e) => {
+      if (map1lock === true) {
+        return
+      } else if (map1lock === -1) {
+        if (map1.getZoom() < map0.getZoom()) return
+      } else if (map1lock === 1) {
+        if (map1.getZoom() > map0.getZoom()) return
+        map1lock = false // helps the zoom out
+      } else {
+        lock(0)
+      }
       const zoom = map1.getZoom()
       requestAnimationFrame(() => {
         map0.setZoom(zoom)
@@ -101,6 +117,61 @@
       unit: 'metric',
     })
     map0.addControl(scale)
+
+    const geocodeTypes =
+      'country, region, postcode, district, place, locality, neighborhood'
+    const map0geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      types: geocodeTypes,
+      marker: false,
+    })
+    const map1geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      types: geocodeTypes,
+      marker: false,
+    })
+    map0.addControl(map0geocoder, 'top-left')
+    map1.addControl(map1geocoder, 'top-left')
+
+    let map0flying = false
+    let map1flying = false
+    map0geocoder.on('result', (e) => {
+      // if the event is greater than the bounds, we're zooming out
+      // otherwise zooming in
+      const bounds = map1.getBounds()
+      const difference =
+        e.result.bbox[2] - e.result.bbox[0] > bounds._ne.lng - bounds._sw.lng
+      map0lock = difference ? 1 : -1
+      map1lock = true
+      map0flying = true
+    })
+    map1geocoder.on('result', (e) => {
+      // if the event is greater than the bounds, we're zooming out
+      // otherwise zooming in
+      const bounds = map0.getBounds()
+      const difference =
+        e.result.bbox[2] - e.result.bbox[0] > bounds._ne.lng - bounds._sw.lng
+      map0lock = true
+      map1lock = difference ? 1 : -1
+      map1flying = true
+    })
+
+    map0.on('moveend', () => {
+      if (map0flying) {
+        map0lock = false
+        map1lock = false
+        map0flying = false
+      }
+    })
+    map1.on('moveend', () => {
+      if (map1flying) {
+        map0lock = false
+        map1lock = false
+        map1flying = false
+      }
+    })
   })
 </script>
 
@@ -110,6 +181,13 @@
 </main>
 
 <style>
+  nav {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+  }
+
   .map {
     flex: 1;
   }
