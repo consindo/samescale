@@ -196,6 +196,7 @@
   main {
     display: flex;
     height: 100%;
+    height: -webkit-fill-available;
     column-gap: 1px;
     row-gap: 1px;
     flex-direction: column;
