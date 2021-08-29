@@ -25,6 +25,12 @@
     satellite: 'mapbox://styles/mapbox/satellite-v9',
   }
 
+  const convertZoom = (lat0, zoom0, lat1) => {
+    const a = Math.abs(Math.cos((lat0 * Math.PI) / 180)) / Math.pow(2, zoom0)
+    const b = Math.abs(Math.cos((lat1 * Math.PI) / 180))
+    return Math.log2(b / a)
+  }
+
   let map0, map1
 
   onMount(async () => {
@@ -40,7 +46,11 @@
       container: 'map1', // container ID
       style: styles[mapType],
       center: initialLocation[1],
-      zoom: initialZoom,
+      zoom: convertZoom(
+        initialLocation[0][1],
+        initialZoom,
+        initialLocation[1][1]
+      ),
     })
 
     let map0lock = false
@@ -72,11 +82,16 @@
       } else {
         lock(1)
       }
-      const zoom = map0.getZoom()
+      const zoom = convertZoom(
+        map0.getCenter().lat,
+        map0.getZoom(),
+        map1.getCenter().lat
+      )
       requestAnimationFrame(() => {
         map1.setZoom(zoom)
       })
     })
+
     map1.on('zoom', (e) => {
       if (map1lock === true) {
         return
@@ -88,7 +103,12 @@
       } else {
         lock(0)
       }
-      const zoom = map1.getZoom()
+
+      const zoom = convertZoom(
+        map1.getCenter().lat,
+        map1.getZoom(),
+        map0.getCenter().lat
+      )
       requestAnimationFrame(() => {
         map0.setZoom(zoom)
       })
