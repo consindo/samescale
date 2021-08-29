@@ -128,11 +128,17 @@
       })
     })
 
-    const scale = new mapboxgl.ScaleControl({
+    const scale0 = new mapboxgl.ScaleControl({
       maxWidth: 80,
       unit: 'metric',
     })
-    map0.addControl(scale)
+    map0.addControl(scale0)
+
+    const scale1 = new mapboxgl.ScaleControl({
+      maxWidth: 80,
+      unit: 'metric',
+    })
+    map1.addControl(scale1)
 
     const geocodeTypes =
       'country, region, postcode, district, place, locality, neighborhood'
