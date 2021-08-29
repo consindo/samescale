@@ -6,7 +6,15 @@
 
 		<title>Same Scale - Waka</title>
 
-		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta
+			name="description"
+			content="Compare two maps with the same scale and see the difference in our built environments"
+		/>
+
+		<link rel="icon" sizes="16x16 32x32 64x64" href="favicon.ico" />
+		<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
 		<link rel="stylesheet" href="/global.css" />
 		<link rel="stylesheet" href="/build/bundle.css" />
 
@@ -23,7 +31,30 @@
 		/>
 
 		<script defer src="/build/bundle.js"></script>
+
+		<meta property="og:title" content="Same Scale" />
+		<meta
+			property="og:description"
+			content="Compare two maps with the same scale and see the difference in our built environments"
+		/>
+
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@consindo" />
+		<meta name="twitter:title" content="Same Scale" />
+		<meta
+			name="twitter:description"
+			content="Compare two maps with the same scale and see the difference in our built environments"
+		/>
+
+		<!-- Hardcoded, because has to be an absolute URL! -->
+		<meta property="og:image" content="https://scale.waka.app/akl-syd.jpg" />
+		<meta name="twitter:image" content="https://scale.waka.app/akl-syd.jpg" />
 	</head>
 
-	<body></body>
+	<body>
+		<noscript>
+			<h3>Sorry!</h3>
+			<p>This application requires JavaScript to be enabled.</p>
+		</noscript>
+	</body>
 </html>
