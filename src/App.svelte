@@ -13,7 +13,12 @@
   <MapView {initialLocation} />
 {/if}
 
-<div class="container" style="--opacity: {loadMap ? 0 : 1}; --pointer-events: {loadMap ? 'none' : 'auto'}">
+<div
+  class="container"
+  style="--opacity: {loadMap ? 0 : 1}; --pointer-events: {loadMap
+    ? 'none'
+    : 'auto'}"
+>
   <h1>Same Scale</h1>
   <p>
     Compare two maps with the same scale <br />and see the difference in our
@@ -81,9 +86,9 @@
   }
   @media screen and (min-device-pixel-ratio: 1.5) {
     .container {
-    background-size: 50px;
+      background-size: 50px;
+    }
   }
-}
   h1 {
     font-size: 3rem;
     letter-spacing: -2px;

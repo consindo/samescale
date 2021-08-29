@@ -141,12 +141,14 @@
       mapboxgl: mapboxgl,
       types: geocodeTypes,
       marker: false,
+      collapsed: true,
     })
     const map1geocoder = new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl,
       types: geocodeTypes,
       marker: false,
+      collapsed: true,
     })
     map0.addControl(map0geocoder, 'top-left')
     map1.addControl(map1geocoder, 'top-left')
