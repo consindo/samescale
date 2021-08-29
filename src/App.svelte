@@ -67,8 +67,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
-    height: -webkit-fill-available;
+    min-height: 100%;
+    min-height: -webkit-fill-available;
     width: 100%;
     z-index: 25;
     background-color: #fafafa;
