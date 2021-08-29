@@ -67,8 +67,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    min-height: 100%;
-    min-height: -webkit-fill-available;
+    height: 100%;
+    height: -webkit-fill-available;
+    overflow-y: auto;
     width: 100%;
     z-index: 25;
     background-color: #fafafa;
@@ -161,7 +162,7 @@
   }
 
   footer {
-    padding: 0.75rem 0;
+    padding: 0.75rem 0 2rem;
   }
 
   footer a {
