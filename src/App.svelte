@@ -4,25 +4,39 @@
   const token = process.env.MAPBOX_TOKEN
   mapboxgl.accessToken = token
 
+  let mapType = 'outdoors'
+  const switchMap = () => {
+    if (mapType === 'outdoors') {
+      mapType = 'satellite'
+    } else {
+      mapType = 'outdoors'
+    }
+    map0.setStyle(styles[mapType])
+    map1.setStyle(styles[mapType])
+  }
+
   const initialZoom = 10
-  const styles = [
-    'mapbox://styles/mapbox/streets-v11',
-    'mapbox://styles/mapbox/satellite-streets-v11',
-    'mapbox://styles/mapbox/satellite-v9',
-  ]
+  const styles = {
+    outdoors: 'mapbox://styles/mapbox/outdoors-v11',
+    streets: 'mapbox://styles/mapbox/streets-v11',
+    satellitestreets: 'mapbox://styles/mapbox/satellite-streets-v11',
+    satellite: 'mapbox://styles/mapbox/satellite-v9',
+  }
+
+  let map0, map1
 
   onMount(async () => {
-    const map0 = new mapboxgl.Map({
+    map0 = new mapboxgl.Map({
       container: 'map0', // container ID
-      style: styles[0],
+      style: styles[mapType],
       attributionControl: false,
       center: [174.76, -36.85], // auckland
       zoom: initialZoom,
     })
 
-    const map1 = new mapboxgl.Map({
+    map1 = new mapboxgl.Map({
       container: 'map1', // container ID
-      style: styles[0],
+      style: styles[mapType],
       center: [151.2, -33.86], // sydney
       zoom: initialZoom,
     })
@@ -183,12 +197,46 @@
   })
 </script>
 
+<nav>
+  <button on:click={switchMap}>
+    {#if mapType === 'satellite'}
+      <img src="/map.svg" alt="Switch to Street Map" />
+    {:else if mapType === 'outdoors'}
+      <img src="/satellite.svg" alt="Switch to Satellite Map" />
+    {/if} 
+  </button>
+</nav>
+
 <main>
   <div id="map0" class="map" />
   <div id="map1" class="map" />
 </main>
 
 <style>
+  nav {
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    top: 0;
+  }
+  nav button {
+    background: #fff;
+    margin: 10px;
+    border: 0;
+    padding: 13px;
+    box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
+    border-radius: 4px;
+  }
+  nav button img {
+    vertical-align: top;
+  }
+
+  @media screen and (min-width: 640px) {
+    nav button {
+      padding: 6px;
+    }
+  }
+
   .map {
     flex: 1;
   }
