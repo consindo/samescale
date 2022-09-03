@@ -39,7 +39,6 @@
       style: styles[mapType],
       attributionControl: false,
       center: initialLocation[0],
-      projection: 'globe',
       zoom: initialZoom,
     })
 
@@ -47,7 +46,6 @@
       container: 'map1', // container ID
       style: styles[mapType],
       center: initialLocation[1],
-      projection: 'globe',
       zoom: convertZoom(
         initialLocation[0][1],
         initialZoom,
