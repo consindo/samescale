@@ -55,6 +55,12 @@
       </li>
     </ul>
   </nav>
+  <aside>
+    <p>
+      Note: This visualization uses the web mercator projection, so it's not
+      great for larger areas!
+    </p>
+  </aside>
   <footer>
     <a href="https://jono.nz">{new Date().getFullYear()} &copy; Jono Cooper</a>
   </footer>
